@@ -1,0 +1,134 @@
+\documentclass{amsart}
+
+% Document setting
+\usepackage{libertine}
+\usepackage[libertine]{newtxmath}
+\usepackage{fullpage}
+
+\usepackage{amsmath, amsthm, mathtools}
+\usepackage{preamble}
+
+\renewcommand{\baselinestretch}{1.2}
+
+\title{Uniformization of Drinfeld Modular Curves}
+\author{Rumi Park}
+\date{April 2024}
+
+\begin{document}
+
+\maketitle
+
+\section{Uniformization of Complex Modular Curves}
+
+In the classical modular curve theory, there are three steps to define and uniformize the modular curve.
+
+\subsection{Algebraic modular curve.} Let $F_N: \Sch{\bZ[\frac{1}{N}]}^{\op} \to \Set$ be a functor sending a $\bZ[\frac{1}{N}]$-scheme $S$ to the set of isomorphism classes of elliptic curves over $S$ with a full level-$N$ structure. Then, this functor is representable by a smooth, finite type $\bZ[\frac{1}{N}]$-scheme $Y(N)$ if $N \ge 3$.
+
+\subsection{Complex analytic modular curve.} Since $Y(N)$ is of finite type over $\bZ[\frac{1}{N}]$, so is its base change $\cY(N) := Y(N) \otimes \bC$. Hence, we can give a complex analytic structure on $\cY(N)$, which makes it a Riemann surface.
+
+\subsection{Uniformization.} By definition, the space $\cY(N)$ classifies complex elliptic curves with a full level-$N$ structure. Hence, there is a bijection
+$$ \Gamma(N) \backslash \bH \to \cY(N). $$
+where $\Gamma(N)$ is the kernel of the reduction map $\SL_2(\bZ) \to \SL_2(\bZ/N\bZ)$. Furthermore, the group acts discretely on the upper-half plane, so the quotient $\Gamma(N) \backslash \bH$ is not just a set but a complex analytic space. Under this setting, the bijection above becomes an isomorphism of complex analytic spaces.
+
+We do the analogous thing with Drinfeld modular curves.
+
+\section{Rigid Analytic Geometry}
+
+Let $K$ be a non-archimedean local field. Over such fields, we can do not only the non-archimedean analysis but also the analytic geometry.
+
+\subsection{Non-archimedean analysis}
+
+Let me recall some non-archimedean analysis. First, an infinite series
+$$ \sum_{i=0}^\infty a_i $$
+over $K$ converges if and only if each term $a_n$ goes to zero as $n$ gets larger. Hence, a power series
+$$ \sum_{i=0}^\infty a_i T^i $$
+converges on the unit disc if and only if the coefficients converges to zero. We collect all of them to define \textit{Tate algebra}.
+
+\begin{defn}[Tate algebras]
+    We define \textit{Tate algebra} $T_n = K \langle T_1, T_2, \dots, T_n \rangle$ as the subring of the formal power series ring consists of $\sum_{\mathbf i \in \bN^n} a_{\mathbf i} T^{\mathbf i}$ with $a_{\mathbf i} \to 0$ as $\mathbf i \to \infty$.
+\end{defn}
+
+And as usual, one of the main players is the quotient of such rings, which are called \textit{affinoid algebras}.
+
+\begin{defn}[affinoid algebras]
+    An \textit{affinoid algebra} over $K$ is a quotient of a Tate algebra by an ideal.
+\end{defn}
+
+There is a version of \textit{maximum modulus theorem} as well. However, there are two differences we have to care about.
+
+First, we have to introduce the notion of modulus. Let $A$ be an affinoid algebra, $x$ be a maximal ideal of it, and $f \in A$. Then, $f(x)$ is the image of $f$ under the quotient map $A \to A/x =: k(x)$. It is a fact that $k(x)$ is a finite extension of $K$, and so there is the unique extension of the absolute value to $k(x)$. Hence, $|f(x)|$ is well-defined and this is called the modulus of $f$ at $x$. Or equivalently, we can think of this as a composition of a chosen embedding $k(x) \xhookrightarrow{} K^{\alg}$ and the absolute value $| \cdot |: K^{\alg} \to \bQ$.
+
+Second, we had to consider the boundary for a complex analytic version. In contrast, we do not need to consider this because the non-archimedean unit disc is already closed.
+
+\begin{defn}[Supremum norm, spectral norm]
+    Let $A$ be an affinoid $K$-algebra and $f \in A$. We define a \textit{spectral norm} as
+    $$ \|f\|_{\spec} := \sup_{x \in \Max(A)} |f(x)|. $$
+\end{defn}
+
+\begin{thm}[Maximum modulus theorem]
+    Let $A$ be an affinoid $K$-algebra and $f \in A$. Then, there is $x \in \Max(A)$ such that $\|f\|_{\spec} = |f(x)|$. If the spectral norm is zero, then $f$ must be nilpotent.
+\end{thm}
+
+There is another norm called \textit{Gauss norm}. On the Tate algebra, it is defined as the supremum (or equivalently, maximum) of the coefficients of a power series. Under this norm, the Tate algebras form Banach algebras, so affinoid algebras are so as well. In contrase, the spectral norm may not form a norm. By the maximal modulus theorem, the spectral norm is a norm if and only if $A$ is reduced. In this case, any norm is equivalent with the spectral norm; hence, any reduced affinoid algebra is a Banach algebra under the spectral norm.
+
+\subsection{$G$-Topologies.} There are several different topologies on $\Max(A)$: very weak, weak, somewhat weak, and strong $G$-topologies. Here, $G$-topology means a Grothendieck topology with the category of all subsets.
+
+Before defining these topologies, let me introduce some notions of subsets.
+
+\begin{defn}[Rational subset]
+    A \textit{rational subset} of $\Max(A)$ is a subset of the form
+    $$ \{x \in X \,:\, |f_i(x)| \le |g(x)| \text{ for all } i\} $$
+    for some $f_1, \dots, f_n, g \in A$ generating the unit ideal.
+\end{defn}
+
+\begin{defn}[Affinoid subdomain]
+    An \textit{affinoid subdomain/subspace/subset} is a subset $Y \subseteq X = \Max(A)$ satisfying the following condition: There is an affinoid $K$-algebra $B$ and a morphism $A \to B$ such that the induced map $\Max(B) \to \Max(A)$ has an image contained in $Y$. Furthermore, $B$ is initial among such pair.
+
+    This affinoid algebra $B$ is called the \textit{coordinate ring of $Y$}.
+\end{defn}
+
+\begin{prop}
+    Let $Y \subseteq X = \Max(A)$ be an affinoid subdomain and $B$ be its coordinate ring. The function $\Max(B) \to Y$ is bijective.
+\end{prop}
+
+\begin{proof}
+    Let $y \in Y$ and $\fm$ be the maximal ideal of $A$ representing $y$. Clearly, the morphism $\Max(A/\fm) \to \Max(A)$ factors through $Y$. By the universality, there is a unique morphism $\Max(B) \to \Max(A/\fm)$. This proves the bijectivity.
+\end{proof}
+
+This implies that an affinoid subdomain can be considered as an affinoid space.
+
+\begin{fact}
+    \begin{enumerate}
+        \item Every rational subset is an affinoid subdomain.
+        
+        \item Every affinoid subdomain is a finite union of rational subsets.
+
+        \item In contrast, not all finite union of rational subsets are affinoid.
+    \end{enumerate}
+\end{fact}
+
+\begin{defn}[Strong topology]
+    The \textit{strong topology on $X = Max(A)$} consist of two data: admissible open subsets and admissible cover. A subset $U \subseteq X$ is admissible open if it is a union of affinoid subdomains $U_i$'s such that, for any morphism $\phi: A \to B$ inducing $\phi^{\ast}: \Max(B) \to \Max(A)$ which factors through $U$, finitely many $U_i$'s can cover the image of $\phi^{\ast}$.
+\end{defn}
+
+\begin{defn}[Very weak, weak, somewhat weak]
+    A \textit{very weak (respectively, weak, somewhat weak) topology} is a $G$-topology such that admissible opens are rational subsets (respectively, affinoid subdomains, finite union of rational subsets) and admissible covers are open covers admitting a finite subcover.
+\end{defn}
+
+\begin{defn}[Rigid analytic spaces]
+    The (strong, somewhat weak, weak, very weak) \textit{rigid analytic spaces} are $G$-locally ringed spaces which is a (strong, somewhat weak, weak, very weak) local gluing of affinoid spaces.
+\end{defn}
+
+\begin{example}
+    \begin{enumerate}
+        \item Rigid affine/projective spaces.
+
+        \item There is a \textit{rigid analytification functor} from the category of $K$-schemes which are of finite type to the category of rigid analytic spaces. This notion leads us to the \textit{GAGA theorems}.
+    \end{enumerate}
+\end{example}
+
+\section{Drinfeld Modular Curves}
+
+
+
+\end{document}
